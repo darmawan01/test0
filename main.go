@@ -11,13 +11,7 @@ func check(s string) {
 
 	newVal := strings.ToLower(s)
 	aHidup, bHidup := strings.Count(newVal, "a"), strings.Count(newVal, "o")
-	mati := 0
-
-	for i := 0; i < len(newVal); i++ {
-		if string(newVal[i]) != "a" && string(newVal[i]) != "o" {
-			mati++
-		}
-	}
+	mati := (len(newVal) - 1) - (aHidup + bHidup)
 
 	if aHidup > 1 {
 		aHidup = 1
@@ -31,32 +25,9 @@ func check(s string) {
 }
 
 func main() {
-	var newdata []string
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter text: ")
+	text, _ := reader.ReadString('\n')
+	check(text)
 
-	if len(os.Args) < 2 {
-		fmt.Println("Missing parameter, provide file name!")
-		return
-	}
-
-	data, err := os.Open(os.Args[1])
-
-	if err != nil {
-		fmt.Println("Can't read file:", os.Args[1])
-		panic(err)
-	}
-
-	scanner := bufio.NewScanner(data)
-	for scanner.Scan() {
-		newdata = append(newdata, scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-
-	for _, val := range newdata {
-		check(val)
-	}
-
-	defer data.Close()
 }
