@@ -8,7 +8,6 @@ import (
 )
 
 func check(s string) {
-
 	newVal := strings.ToLower(s)
 	aHidup, bHidup := strings.Count(newVal, "a"), strings.Count(newVal, "o")
 	mati := (len(newVal) - 1) - (aHidup + bHidup)
@@ -20,7 +19,6 @@ func check(s string) {
 	}
 
 	jlmHM := aHidup + bHidup
-
 	fmt.Printf("hasil: huruf mati: %d, huruf hidup: %d \n", mati, jlmHM)
 }
 
