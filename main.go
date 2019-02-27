@@ -4,15 +4,33 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
-func resolve(value []string) {
-	fmt.Println(value)
-	fmt.Printf(`hasil: "huruf mati: %d, huruf hidup: %d"`, 0, 0)
+func check(s string) {
+
+	newVal := strings.ToLower(s)
+	aHidup, bHidup := strings.Count(newVal, "a"), strings.Count(newVal, "o")
+	mati := 0
+
+	for i := 0; i < len(newVal); i++ {
+		if string(newVal[i]) != "a" && string(newVal[i]) != "o" {
+			mati++
+		}
+	}
+
+	if aHidup > 1 {
+		aHidup = 1
+	} else if bHidup > 0 {
+		bHidup = 1
+	}
+
+	jlmHM := aHidup + bHidup
+
+	fmt.Printf("hasil: huruf mati: %d, huruf hidup: %d \n", mati, jlmHM)
 }
 
 func main() {
-	fmt.Print("Load Test .....\n\n")
 	var newdata []string
 
 	if len(os.Args) < 2 {
@@ -36,7 +54,9 @@ func main() {
 		panic(err)
 	}
 
-	resolve(newdata)
+	for _, val := range newdata {
+		check(val)
+	}
 
 	defer data.Close()
 }
